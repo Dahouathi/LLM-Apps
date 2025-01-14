@@ -1,25 +1,38 @@
-# LLM-Apps
+# RAG QnA System with Evaluation
 
-This repository contains a collection of projects and applications built using **Large Language Models (LLMs)**. These projects explore various capabilities of LLMs, including retrieval-augmented generation, question answering, and more.
+This project demonstrates a **Retrieval-Augmented Generation (RAG)** pipeline for question answering (QA), using **Ollama Llama 3.2** for language generation. It evaluates the pipeline's performance on the **QnA_v2 dataset** using metrics like BERTScore, BLEU, and ROUGE.
 
-## Projects in This Repository
+## Architecture
 
-### 1. [RAG QnA System with Evaluation](RAG%20QnA%20System%20with%20Evaluation/)
+Below is the architecture of the RAG pipeline implemented in this project:
 
-A **Retrieval-Augmented Generation (RAG)** pipeline for question answering, built using:
-- **ChromaDB** for document retrieval.
-- **Ollama Llama 3.2** for language generation.
-- **BERTScore** and other metrics for evaluation.
+![RAG Implementation + Evaluation Workflow](Rag_architecture.png)
 
-This project demonstrates:
-- How to integrate a retrieval-augmented pipeline with LLMs.
-- A step-by-step implementation for evaluating QA systems on the QnA_v2 dataset.
-  
-#### Key Features:
-- Customizable LLMs (use Hugging Face models or other integrations).
-- Efficient retrieval and reranking with **ChromaDB** and **Cross-Encoder**.
-- Comprehensive evaluation with metrics like BLEU, ROUGE, and BERTScore.
+### Key Components:
+1. **Query from QA Dataset**: Input questions are taken from the QnA_v2 dataset.
+2. **Hugging Face Embedder**: Both the query and documents are vectorized using Hugging Face embeddings.
+3. **ChromaDB**: The vectorized documents are stored and retrieved using ChromaDB.
+4. **Cross-Encoder Reranker**: Retrieved documents are reranked for relevance using a cross-encoder.
+5. **Language Model (LLM)**: The response is generated using Ollama's Llama 3.2. (This can be replaced with a Hugging Face model.)
+6. **Evaluation with True Answer**: The generated response is evaluated against the true answer using metrics like BERTScore.
 
-➡️ [Check out the project here](RAG%20QnA%20System%20with%20Evaluation/README.md).
+---
+
+## Features
+
+- **Customizable LLMs**: Currently integrates **Ollama Llama 3.2**, but can be adapted to any Hugging Face model by updating the `llm` initialization in LangChain.
+- **Efficient Retrieval**: Uses **ChromaDB** for fast and scalable document retrieval.
+- **Relevance Ranking**: Leverages a cross-encoder to rerank retrieved documents.
+- **Evaluation**: Measures QA pipeline performance using multiple metrics:
+  - BERTScore
+  - BLEU
+  - ROUGE
+
+---
+
+## Dataset
+
+The project uses the **QnA_v2 Dataset**, a collection of QA pairs for evaluation. Download it here:
+- [QnA_v2 Dataset](https://msmarco.z22.web.core.windows.net/msmarco/dev_v2.1.json.gz)
 
 ---
